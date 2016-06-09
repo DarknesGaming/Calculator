@@ -28,7 +28,7 @@ public class Calculator extends JFrame implements ActionListener {
 		Font font = new Font("Times new Roman", Font.BOLD, 24);
 		
 		Calculator() {
-			super("Calculator v0.0.1");
+			super("Calculator v0.0.2");
 			setDesign();
 			setSize(760, 500);
 			setResizable(false);
@@ -137,7 +137,7 @@ public class Calculator extends JFrame implements ActionListener {
 		    display.setText("");
 	    }
 		if(ae.getSource() == button[12])
-			display.append("0");
+			display.append(".");
 		if(ae.getSource() == button[13]) {
 			//divide function[3]
 			temporary[0] = Double.parseDouble(display.getText());
