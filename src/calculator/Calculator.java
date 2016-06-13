@@ -4,7 +4,7 @@
 |                                                |
 |            Created by DarknesGaming            |
 |                                                |
-|            Version 0.1.0 Build 10              |
+|             Version 0.1.1 Build 18             |
 |                                                |
 ------------------------------------------------*/
 
@@ -18,17 +18,18 @@ public class Calculator extends JFrame implements ActionListener {
 	public static void main(String[] arguments) {
 		Calculator c = new Calculator();
 	}
-	    // Modify this to add another row.
-		JPanel[] row = new JPanel[6];
-		// Modify this to add more buttons.
-		JButton[] button = new JButton[24];
+	    // You must modify this to add another row, or errors will occur.
+		JPanel[] row = new JPanel[7];
+		// You must modify this if you want to add more buttons!
+		JButton[] button = new JButton[25];
 		// Modify this so the names of the buttons will be visible. All buttons need to be in order!
 		String[] buttonString = {"7", "8", "9", "+",
 				                 "4", "5", "6", "-",
 				                 "1", "2", "3", "*",
 				                 ".", "/", "C", "√",
 				                 "+/-", "=", "0", 
-				                 "sin", "cos", "tan", "PI", "%",
+				                 "sin", "cos", "tan", "PI", "%", 
+				                 "Exit",
 		};
 		int[] dimW = {600, 90, 200, 180};
 		int[] dimH = {70, 80};
@@ -36,20 +37,19 @@ public class Calculator extends JFrame implements ActionListener {
 		Dimension regularDimension = new Dimension(dimW[1], dimH[1]); // Button Size
 		Dimension rColumnDimension = new Dimension(dimW[2], dimH[1]); // Right Column
 		Dimension zeroButDimension = new Dimension(dimW[3], dimH[1]); // The Zero Button
-		Dimension trigDimension = new Dimension(dimW[1], dimH[1]);
+        Dimension exitDimension = new Dimension(dimW[3], dimH[1]);
 		boolean[] function = new boolean[4];
 		double[] temporary = {0, 0};
 		JTextArea display = new JTextArea(1,20);
 		Font font = new Font("Times new Roman", Font.BOLD, 24);
 		
 		Calculator() {
-			super("Calculator v0.1.0 Build 10"); // Program Title
+			super("Calculator v0.1.1 Build 18"); // Program Title
 			setDesign();
-			setSize(760, 600); // Resolution of Calculator (Width, Height)
+			setSize(760, 650); // Resolution of Calculator (Width, Height)
 			setResizable(false); // Can we resize this window?
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
-			// Row, buttons per row. Edit the first digit to add more rows in GridLayout!
-			GridLayout grid = new GridLayout(6,6); 
+			GridLayout grid = new GridLayout(7,5); // (Rows, Columns)
 			setLayout(grid);
 			
 			for(int i = 0; i < 4; i++)
@@ -57,13 +57,14 @@ public class Calculator extends JFrame implements ActionListener {
 			
 			FlowLayout f1 = new FlowLayout(FlowLayout.CENTER);
 			FlowLayout f2 = new FlowLayout(FlowLayout.CENTER,1,1);
-			for(int i = 0; i < 6; i++) // The number after the < sign is the rows.
+			// You must modify this to add more visible rows!
+			for(int i = 0; i < 7; i++)
 				row[i] = new JPanel();
-		    for(int i = 0; i < 6; i++) // The number after the < sign is the rows.
+		    for(int i = 0; i < 7; i++)
 				row[i].setLayout(f2);
 		    
 		    // Edit this to add more buttons and not run into errors!
-			for(int i = 0; i < 24; i++) {
+			for(int i = 0; i < 25; i++) {
 				button[i] = new JButton();
 				button[i].setText(buttonString[i]);
 				button[i].setFont(font);
@@ -82,9 +83,11 @@ public class Calculator extends JFrame implements ActionListener {
 			for(int i = 14; i < 18; i++)
                 button[i].setPreferredSize(rColumnDimension);
             button[18].setPreferredSize(zeroButDimension);
-            for(int i = 19; i < 24; i++)
-		        button[i].setPreferredSize(trigDimension);  
+            for(int i = 19; i < 25; i++)
+		        button[i].setPreferredSize(regularDimension); 
 			
+			// All the rows are here. Use comment commands for any rows that are
+			// currently being worked on.
             // Row 0
             row[0].add(display);
             add(row[0]);
@@ -114,11 +117,15 @@ public class Calculator extends JFrame implements ActionListener {
             row[4].add(button[17]);
             add(row[4]);
             
-            // Row 5 (Work in Progress)
-            for(int i = 19; i < 23; i++)
+            // Row 5
+            for(int i = 19; i < 24; i++)
             	row[5].add(button[i]);
-            row[5].add(button[23]);
             add(row[5]);
+            
+            // Row 6
+            for(int i = 24; i < 25; i++)
+            row[5].add(button[i]);
+            add(row[6]); 
             
             
             setVisible(true); // Required so you can see the buttons.
@@ -128,7 +135,7 @@ public class Calculator extends JFrame implements ActionListener {
 	private static void setDesign() {
 		// TODO Auto-generated method stub
 		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.Icons"); // Change this if you want a different look.
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.metal.Icons"); // Change this if you want a different look.
 		} catch(Exception e) {
 		}
 	}
@@ -199,6 +206,8 @@ public class Calculator extends JFrame implements ActionListener {
 			getPI();
 		if(ae.getSource() == button[23])
 			display.append("%");
+		if(ae.getSource() == button[24])
+			System.exit(ABORT);
 
 	} // End of button list
 	
