@@ -9,6 +9,10 @@ This is an open source project, so anyone can contribute to this.
 
 Java is required! Download it from [here.](http://java.com/en/)
 
+## Known issues:
+* Factorial button creates a new calculator.
+* Switching between functions can cause errors.
+
 ## To-do list
 * Add a menu.
 * Do some design improvements.
