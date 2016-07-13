@@ -4,7 +4,7 @@
 |                                                |
 |            Created by DarknesGaming            |
 |                                                |
-|             Version 0.3.0 Build 45             |
+|             Version 0.3.1 Build 49             |
 |                                                |
 ------------------------------------------------*/
 
@@ -13,7 +13,6 @@ package calculator;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import calculator.GetFactorial;
 
 public class Calculator extends JFrame implements ActionListener {
 	public static void main(String[] arguments) {
@@ -51,9 +50,9 @@ public class Calculator extends JFrame implements ActionListener {
 		Font font = new Font("Times new Roman", Font.BOLD, 21);
 		
 		Calculator() {
-			super("Calculator v0.3.0 Build 45"); // Program Title
+			super("Calculator v0.3.1 Build 49"); // Program Title
 			setDesign();
-			setSize(760, 750); // Resolution of Calculator (Width, Height)
+			setSize(760, 790); // Resolution of Calculator (Width, Height)
 			setResizable(false); // Can we resize this window?
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
 			GridLayout grid = new GridLayout(11,5); // (Rows, Columns)
@@ -104,7 +103,7 @@ public class Calculator extends JFrame implements ActionListener {
             button[35].setPreferredSize(otherDimension);
             button[36].setPreferredSize(otherDimension);
             for(int i = 37; i < 39; i++)
-            	button[i].setPreferredSize(regularDimension);
+            	button[i].setPreferredSize(modeDimension);
 			
 			// All the rows are here. Use comment commands for any rows that are
 			// currently being worked on.
@@ -274,9 +273,11 @@ public class Calculator extends JFrame implements ActionListener {
 			getlog1p();
 		if(ae.getSource() == button[37])
 			getcbrt();
-		if(ae.getSource() == button[38])
-            new GetFactorial();
-
+		if(ae.getSource() == button[38]) // Work in Progress
+		{
+            int input = Integer.parseInt(display.getText());
+		display.setText("" + getFactorial(input));
+		}
 	} // End of button list
 	
 	// Button functions (only for certain buttons)
@@ -451,12 +452,12 @@ public class Calculator extends JFrame implements ActionListener {
     	}
     }
     public int getFactorial(int input) {
-    		int x, fact = 1;
-    		for ( x = input; x > 1; x--)
-    			fact *= x;
-    		
-    		return fact;
-    	
+    	int result;
+    	if(input == 0||input == 1){
+    		return 1;
+    	} else {
+    		result = getFactorial(input - 1)* input;
+    		return result;
+    	}
     }
-
 }
